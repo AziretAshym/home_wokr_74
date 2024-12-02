@@ -10,14 +10,16 @@ app.use(express.json());
 app.use('/messages', messagesRouter);
 
 const run = async () => {
-    await fileDb.init();
-
-
-    app.listen(port, () => {
-        console.log(`Server started on port http://localhost:${port}`);
-    });
+    try {
+        await fileDb.init();
+        app.listen(port, () => {
+            console.log(`Server started on port http://localhost:${port}`);
+        });
+    } catch (e) {
+        console.error(e);
+    }
 };
 
-run().catch((err) => {
-    console.error(err);
-})
+run().catch((e) => {
+    console.error(e);
+});

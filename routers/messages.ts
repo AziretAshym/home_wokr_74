@@ -1,6 +1,6 @@
 import express = require('express');
 import fileDb from "../fileDb";
-import {MessageWithoutId} from "../types";
+import { MessageWithoutId } from "../types";
 
 const messagesRouter = express.Router();
 
@@ -12,11 +12,14 @@ messagesRouter.get('/', async (req, res) => {
 messagesRouter.post('/', async (req, res) => {
     const message: MessageWithoutId = {
         message: req.body.message,
-        date: req.body.date
     };
 
-    const savedMessage = await fileDb.addMessage(message);
-    res.send(savedMessage);
+    try {
+        const savedMessage = await fileDb.addMessage(message);
+        res.status(200).send(savedMessage);
+    } catch (e) {
+        console.error(e);
+    }
 });
 
 messagesRouter.get('/:id', async (req, res) => {

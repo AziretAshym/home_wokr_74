@@ -4,4 +4,4 @@ export interface Message {
     date: string;
 }
 
-export type MessageWithoutId = Omit<Message, 'id'>
+export type MessageWithoutId = Omit<Message, 'id' | 'date'>
